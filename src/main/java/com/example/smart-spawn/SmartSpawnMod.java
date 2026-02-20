@@ -59,7 +59,7 @@ public class SmartSpawnMod {
         // Mark them so this never runs again for this player.
         data.setBoolean(MODID + ".hasSpawned", true);
 
-        if (isInWater(world, player.getPosition())) {
+        if (isLiquid(world, player.getPosition())) {
             relocatePlayer(player, world);
         }
     }
@@ -111,9 +111,10 @@ public class SmartSpawnMod {
         }
     }
 
-    private boolean isInWater(World world, BlockPos pos) {
-        Block block = world.getBlockState(pos).getBlock();
-        return block == Blocks.WATER || block == Blocks.FLOWING_WATER;
+    // FIX: Replaced vanilla-only block checks with material.isLiquid(), which covers
+    //      water, lava, and any liquid added by mods.
+    private boolean isLiquid(World world, BlockPos pos) {
+        return world.getBlockState(pos).getMaterial().isLiquid();
     }
 
     private boolean isNearWater(World world, BlockPos centerPos) {
@@ -121,8 +122,7 @@ public class SmartSpawnMod {
             for (int z = -WATER_CHECK_RADIUS; z <= WATER_CHECK_RADIUS; z++) {
                 for (int y = -3; y <= 3; y++) {
                     BlockPos checkPos = centerPos.add(x, y, z);
-                    Block block = world.getBlockState(checkPos).getBlock();
-                    if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
+                    if (isLiquid(world, checkPos)) {
                         return true;
                     }
                 }
@@ -186,8 +186,8 @@ public class SmartSpawnMod {
         // Ground must be solid
         if (!groundMaterial.isSolid()) return false;
 
-        // Ground must not be water or lava
-        if (groundMaterial == Material.WATER || groundMaterial == Material.LAVA) return false;
+        // Ground must not be any liquid (water, lava, or modded)
+        if (groundMaterial.isLiquid()) return false;
 
         // FIX: Removed the redundant isNearWater() call here. That check scans 3,000+ blocks
         //      and was being called for every single spawn candidate — 100+ times in the random

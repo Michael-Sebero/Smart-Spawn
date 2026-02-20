@@ -50,8 +50,15 @@ public class SmartSpawnMod {
         EntityPlayer player = (EntityPlayer) event.getEntity();
         World world = event.getWorld();
 
-        // Only relocate if the player is currently IN water (spawning in water),
-        // not just near it — avoids teleporting established players on every login.
+        // Check the player's persistent NBT data to see if they've joined before.
+        // getEntityData() returns a compound tag that is saved with the player file,
+        // so this survives server restarts and correctly identifies true first-time joins.
+        net.minecraft.nbt.NBTTagCompound data = player.getEntityData();
+        if (data.getBoolean(MODID + ".hasSpawned")) return;
+
+        // Mark them so this never runs again for this player.
+        data.setBoolean(MODID + ".hasSpawned", true);
+
         if (isInWater(world, player.getPosition())) {
             relocatePlayer(player, world);
         }

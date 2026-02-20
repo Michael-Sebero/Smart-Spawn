@@ -14,28 +14,15 @@ See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more i
 #################################################
 Version string 'V1' does not match SemVer specification 
 You should try SemVer : http://semver.org/
+:clean UP-TO-DATE
 :deobfCompileDummyTask
-:getVersionJson
-:extractUserdev UP-TO-DATE
-:downloadClient SKIPPED
-:downloadServer SKIPPED
-:splitServerJar SKIPPED
-:mergeJars SKIPPED
-:applyBinaryPatches SKIPPED
 :deobfProvidedDummyTask
-:extractDependencyATs SKIPPED
-:extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
-:genSrgs SKIPPED
-:deobfMcMCP SKIPPED
 :sourceApiJava
 :compileApiJava UP-TO-DATE
 :processApiResources UP-TO-DATE
 :apiClasses UP-TO-DATE
 :sourceMainJava
-:compileJavaNote: /home/user/Downloads/landspawn/build/sources/main/java/com/example/smart-spawn/SmartSpawnMod.java uses or overrides a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-
+:compileJava
 :processResources
 :classes
 :jar
@@ -44,10 +31,15 @@ Note: Recompile with -Xlint:deprecation for details.
 :processTestResources UP-TO-DATE
 :testClasses UP-TO-DATE
 :test UP-TO-DATE
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:getVersionJson
+:extractUserdev UP-TO-DATE
+:genSrgs SKIPPED
 :reobfJar
 :extractAnnotationsJar
 :extractRangemapReplacedMain
-/home/user/Downloads/landspawn/build/sources/main/java
+/home/user/Files/GitHub/Smart-Spawn/build/sources/main/java
 :retromapReplacedMain
 remapping source...
 :sourceJar
@@ -57,4 +49,4 @@ remapping source...
 
 BUILD SUCCESSFUL
 
-Total time: 13.481 secs
+Total time: 3.385 secs
